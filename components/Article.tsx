@@ -1,5 +1,5 @@
-import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import Share from "./Share";
 
 export default function Article({ share }: { share: string }) {
 	return (
@@ -13,12 +13,7 @@ export default function Article({ share }: { share: string }) {
 				TypeScript. I will add more languages as soon as I figure out how to.
 				Lol.
 			</ReactMarkdown>
-			<Link target={"_blank"} href={`/?code=${share}`}>
-				<button
-					className="border p-1 font-bold text-gray-800 rounded-md bg-gradient-to-r from-rose-100 to-teal-100"
-					type="button"
-				>Share Snippet</button>
-			</Link>
+			<Share share={share} />
 			<ReactMarkdown>## Proof of Concept</ReactMarkdown>
 			<ReactMarkdown className="poc">
 				A proof of concept for this project works through the utilization of URL
@@ -28,6 +23,11 @@ export default function Article({ share }: { share: string }) {
 				storage and sharing of content without relying on external hosting by
 				third parties. The _immutable_ nature of this method further adds to its
 				credibility as a viable solution.
+			</ReactMarkdown>
+
+			<ReactMarkdown>
+				Take my random **Advent of Code** solution for example: Try clicking on
+				***Share Snippet***, and share the URL of the page it redirects you to.
 			</ReactMarkdown>
 		</div>
 	);

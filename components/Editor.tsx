@@ -6,7 +6,7 @@ import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
 import { rust } from "@codemirror/lang-rust";
 import { languages } from "@codemirror/language-data";
 
-import { loadLanguage, langs } from "@uiw/codemirror-extensions-langs";
+import {  langs } from "@uiw/codemirror-extensions-langs";
 
 export default function Editor({
 	code,
@@ -18,6 +18,7 @@ export default function Editor({
 		langs.c(),
 		langs.cpp(),
 		langs.go(),
+        langs.markdown()
 	];
 	return (
 		<CodeMirror
@@ -28,7 +29,7 @@ export default function Editor({
 
 				return cb(v, language);
 			}}
-			className="w-full lg:w-2/3 xl:w-1/2 mx-auto p-2"
+			className=" mx-auto mt-5 min-w-screen min-h-screen"
 			theme={tokyoNight}
 			extensions={extensions}
 		/>
