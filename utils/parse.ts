@@ -1,4 +1,4 @@
-import { encode, atob } from "js-base64";
+import { encode, decode } from "js-base64";
 
 const getCurrentLink = (asPath: string) => {
 	const origin =
@@ -8,4 +8,4 @@ const getCurrentLink = (asPath: string) => {
 	return `${origin}${asPath}`;
 };
 
-export { encode, atob as decode, getCurrentLink };
+export { encode,  decode, getCurrentLink };

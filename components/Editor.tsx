@@ -1,9 +1,7 @@
 import CodeMirror from "@uiw/react-codemirror";
 import { tokyoNight } from "@uiw/codemirror-theme-tokyo-night";
 
-
-
-import {  langs } from "@uiw/codemirror-extensions-langs";
+import { langs } from "@uiw/codemirror-extensions-langs";
 
 export default function Editor({
 	code,
@@ -15,7 +13,7 @@ export default function Editor({
 		langs.c(),
 		langs.cpp(),
 		langs.go(),
-        langs.markdown()
+		langs.markdown(),
 	];
 	return (
 		<CodeMirror
