@@ -1,10 +1,7 @@
 import CodeMirror from "@uiw/react-codemirror";
 import { tokyoNight } from "@uiw/codemirror-theme-tokyo-night";
 
-import { javascript } from "@codemirror/lang-javascript";
-import { markdown, markdownLanguage } from "@codemirror/lang-markdown";
-import { rust } from "@codemirror/lang-rust";
-import { languages } from "@codemirror/language-data";
+
 
 import {  langs } from "@uiw/codemirror-extensions-langs";
 
