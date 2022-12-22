@@ -6,7 +6,10 @@ import { langs } from "@uiw/codemirror-extensions-langs";
 export default function Editor({
 	code,
 	cb,
-}: { code: string; cb: (value: string, language: string) => void }) {
+}: {
+	code: string;
+	cb: (value: string, language: string) => void;
+}) {
 	const extensions = [
 		langs.tsx(),
 		langs.rust(),

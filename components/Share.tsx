@@ -1,6 +1,19 @@
 import Link from "next/link";
 
-export default function Share({ share }: { share: string }) {
+export default function Share({
+	share,
+	custom = false,
+	classNames,
+}: { share: string; custom: boolean; classNames?: string }) {
+	if (custom) {
+		return (
+			<Link target={"_blank"} href={`/?code=${share}`}>
+				<button className={classNames} type="button">
+					Share Snippet
+				</button>
+			</Link>
+		);
+	}
 	return (
 		<Link target={"_blank"} href={`/?code=${share}`}>
 			<button

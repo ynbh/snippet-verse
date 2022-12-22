@@ -10,7 +10,7 @@ import { Inter } from "@next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 // Components & Utils
-import { Editor, SEO, Article } from "../components";
+import { Editor, SEO, Article, Share } from "../components";
 import { encode, decode } from "../utils/parse";
 import { recordPaste } from "../utils/log";
 
@@ -118,7 +118,7 @@ export default function Home({
       println!("{:#?}", parsed)
   }
   `;
-  
+
 	const [encoded, setEncoded] = useState(encode(code));
 
 	return (
@@ -126,18 +126,25 @@ export default function Home({
 			<SEO />
 
 			<main className={inter.className}>
-				{!isHome ? (
-					<div className="code-box min-w-screen max-w-screen">
-						<Editor
-							code={decoded || code}
-							cb={(v: string, l) => {
-								setEncoded(v);
-								setEncoded((v) => {
-									console.log(v);
-									return encode(v);
-								});
-							}}
+				{isHome === false ? (
+					<div>
+						<Share
+							custom={true}
+							classNames="text-sm font-sans font-bold p-1 m-2 rounded-md border  bg-gradient-to-r from-rose-100 to-teal-100"
+							share={encoded}
 						/>
+						<div className="code-box mt-1">
+							<Editor
+								code={decoded || code}
+								cb={(v: string, l) => {
+									setEncoded(v);
+									setEncoded((v) => {
+										console.log(v);
+										return encode(v);
+									});
+								}}
+							/>
+						</div>
 					</div>
 				) : (
 					<div>
