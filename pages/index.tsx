@@ -11,9 +11,7 @@ import { encode, decode, getCurrentLink } from "../utils/parse";
 import { logToWebhook } from "../utils/log";
 import Article from "../components/Article";
 
-export default function Home({
-	decoded
-}: { decoded: string }) {
+export default function Home({ decoded }: { decoded: string }) {
 	let code = `use std::{collections::HashMap, fs::File, io::Read};
 
   fn get_input() -> String {
@@ -115,9 +113,6 @@ export default function Home({
   }
   `;
 	const [encoded, setEncoded] = useState(encode(code));
-	
-
-  
 
 	return (
 		<div>
@@ -159,9 +154,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 }) => {
 	const encoded = query?.code;
 
-	if (encoded === undefined || typeof encoded !== "string") {
+	const isHome = req.url === "/";
+
+	if (isHome || typeof encoded !== "string") {
 		return {
-			notFound: true,
+			props: {
+				decoded: "",
+			},
 		};
 	}
 
