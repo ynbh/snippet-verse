@@ -163,7 +163,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	const fixedBase64 = encoded.replaceAll(" ", "+");
 	const decoded = decode(fixedBase64);
 
-	recordPaste("```" + decoded + "```");
+	// recordPaste("```" + decoded + "```");
 
 	return {
 		props: {
