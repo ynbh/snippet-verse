@@ -8,6 +8,7 @@ import Editor from "../components/Editor";
 import { useEffect, useState } from "react";
 
 import { encode, decode, getCurrentLink } from "../utils/parse";
+import { logToWebhook } from "../utils/log";
 import Article from "../components/Article";
 
 export default function Home({ decoded }: { decoded: string }) {
@@ -148,7 +149,10 @@ export default function Home({ decoded }: { decoded: string }) {
 	);
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+export const getServerSideProps: GetServerSideProps = async ({
+	req,
+	query,
+}) => {
 	if (req.url === undefined) {
 		return {
 			props: {
@@ -166,6 +170,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		};
 	}
 	const encoded = req?.url.split("/?code=")[1];
+
+  
+	console.log({ encoded, query });
 
 	let decoded = decode(encoded);
 
