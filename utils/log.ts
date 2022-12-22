@@ -1,4 +1,4 @@
-export async function logToWebhook(message: string) {
+export async function recordPaste(message: string) {
 	const url = process.env.DISCORD_WEBHOOK_URL || "";
 
 	const res = await fetch(url, {
