@@ -24,7 +24,7 @@ export default function Editor({
 
 				return cb(v, language);
 			}}
-			className=" mx-auto mt-5 min-w-screen min-h-screen"
+			className=" mx-auto  min-w-screen min-h-screen"
 			theme={tokyoNight}
 			extensions={extensions}
 		/>

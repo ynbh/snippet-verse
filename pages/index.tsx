@@ -14,7 +14,10 @@ import { Editor, SEO, Article } from "../components";
 import { encode, decode } from "../utils/parse";
 import { recordPaste } from "../utils/log";
 
-export default function Home({ decoded }: { decoded: string }) {
+export default function Home({
+	decoded,
+	isHome,
+}: { decoded: string; isHome: boolean }) {
 	let code = `use std::{collections::HashMap, fs::File, io::Read};
 
   fn get_input() -> String {
@@ -115,6 +118,7 @@ export default function Home({ decoded }: { decoded: string }) {
       println!("{:#?}", parsed)
   }
   `;
+  
 	const [encoded, setEncoded] = useState(encode(code));
 
 	return (
@@ -122,23 +126,40 @@ export default function Home({ decoded }: { decoded: string }) {
 			<SEO />
 
 			<main className={inter.className}>
-				<div className="prose prose-sm p-3 mx-auto">
-					<div className="mt-4 md:mt-16">
-						<Article share={encoded} />
+				{!isHome ? (
+					<div className="code-box min-w-screen max-w-screen">
+						<Editor
+							code={decoded || code}
+							cb={(v: string, l) => {
+								setEncoded(v);
+								setEncoded((v) => {
+									console.log(v);
+									return encode(v);
+								});
+							}}
+						/>
 					</div>
-				</div>
-				<div className="code-box">
-					<Editor
-						code={decoded || code}
-						cb={(v: string, l) => {
-							setEncoded(v);
-							setEncoded((v) => {
-								console.log(v);
-								return encode(v);
-							});
-						}}
-					/>
-				</div>
+				) : (
+					<div>
+						<div className="prose prose-sm p-3 mx-auto">
+							<div className="mt-4 md:mt-16">
+								<Article share={encoded} />
+							</div>
+						</div>
+						<div className="code-box mt-5">
+							<Editor
+								code={decoded || code}
+								cb={(v: string, l) => {
+									setEncoded(v);
+									setEncoded((v) => {
+										console.log(v);
+										return encode(v);
+									});
+								}}
+							/>
+						</div>
+					</div>
+				)}
 			</main>
 		</div>
 	);
@@ -168,6 +189,7 @@ export const getServerSideProps: GetServerSideProps = async ({
 	return {
 		props: {
 			decoded,
+			isHome,
 		},
 	};
 };
