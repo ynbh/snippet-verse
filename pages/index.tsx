@@ -11,7 +11,9 @@ import { encode, decode, getCurrentLink } from "../utils/parse";
 import { logToWebhook } from "../utils/log";
 import Article from "../components/Article";
 
-export default function Home({ decoded }: { decoded: string }) {
+export default function Home({
+	decoded
+}: { decoded: string }) {
 	let code = `use std::{collections::HashMap, fs::File, io::Read};
 
   fn get_input() -> String {
@@ -113,7 +115,9 @@ export default function Home({ decoded }: { decoded: string }) {
   }
   `;
 	const [encoded, setEncoded] = useState(encode(code));
-	const [share, setShare] = useState("");
+	
+
+  
 
 	return (
 		<div>
@@ -153,32 +157,19 @@ export const getServerSideProps: GetServerSideProps = async ({
 	req,
 	query,
 }) => {
-	if (req.url === undefined) {
+	const encoded = query?.code;
+
+	if (encoded === undefined || typeof encoded !== "string") {
 		return {
-			props: {
-				decoded: "",
-			},
+			notFound: true,
 		};
 	}
-	const isHome = req.url === "/";
 
-	if (isHome) {
-		return {
-			props: {
-				decoded: "",
-			},
-		};
-	}
-	const encoded = req?.url.split("/?code=")[1];
-
-  
-	console.log({ encoded, query });
-
-	let decoded = decode(encoded);
+	const fixedBinary = encoded.replaceAll(" ", "+");
 
 	return {
 		props: {
-			decoded,
+			decoded: decode(fixedBinary),
 		},
 	};
 };
