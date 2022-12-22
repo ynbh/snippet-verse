@@ -1,27 +1,27 @@
 import Link from "next/link";
+import Button from "./Button";
+import React from 'react'
+
+
+
 
 export default function Share({
 	share,
-	custom = false,
-	classNames,
-}: { share: string; custom: boolean; classNames?: string }) {
-	if (custom) {
+	className,
+    children
+}: { share: string; className?: string, children?: React.ReactNode }) {
+	if (className) {
 		return (
 			<Link target={"_blank"} href={`/?code=${share}`}>
-				<button className={classNames} type="button">
-					Share Snippet
+				<button className={className} type="button">
+					{children}
 				</button>
 			</Link>
 		);
 	}
 	return (
 		<Link target={"_blank"} href={`/?code=${share}`}>
-			<button
-				className="border p-1 font-bold text-gray-800 rounded-md bg-gradient-to-r from-rose-100 to-teal-100"
-				type="button"
-			>
-				Share Snippet
-			</button>
+			<Button>Share Snippet</Button>
 		</Link>
 	);
 }

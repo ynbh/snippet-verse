@@ -13,7 +13,7 @@ export default function Article({ share }: { share: string }) {
 				TypeScript. I will add more languages as soon as I figure out how to.
 				Lol.
 			</ReactMarkdown>
-			<Share custom={false} share={share} />
+			<Share share={share} />
 			<ReactMarkdown>## Proof of Concept</ReactMarkdown>
 			<ReactMarkdown className="poc">
 				A proof of concept for this project works through the utilization of URL

@@ -10,8 +10,8 @@ import { Inter } from "@next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 // Components & Utils
-import { Editor, SEO, Article, Share } from "../components";
-import { encode, decode } from "../utils/parse";
+import { Editor, SEO, Article, Share, Button } from "../components";
+import { encode, decode, getCurrentLink } from "../utils/parse";
 import { recordPaste } from "../utils/log";
 
 export default function Home({
@@ -120,6 +120,7 @@ export default function Home({
   `;
 
 	const [encoded, setEncoded] = useState(encode(code));
+	const [copied, setCopied] = useState(false);
 
 	return (
 		<div>
@@ -129,10 +130,23 @@ export default function Home({
 				{isHome === false ? (
 					<div>
 						<Share
-							custom={true}
-							classNames="text-sm font-sans font-bold p-1 m-2 rounded-md border  bg-gradient-to-r from-rose-100 to-teal-100"
+							className="text-sm font-sans font-bold p-1 m-2 rounded-md border  bg-gradient-to-r from-rose-100 to-teal-100"
 							share={encoded}
-						/>
+						>
+							Share Snippet
+						</Share>
+						<Button
+							onClick={(_) => {
+                const current = window.location.href
+								navigator.clipboard.writeText(current);
+								setCopied((k) => !k);
+
+								setTimeout(() => setCopied((k) => !k), 2000);
+							}}
+							className="text-sm font-sans font-bold p-1 m-2 rounded-md border  bg-gradient-to-r from-rose-100 to-teal-100"
+						>
+							{copied ? "Copied" : "Copy URL"}
+						</Button>
 						<div className="code-box mt-1">
 							<Editor
 								code={decoded || code}
